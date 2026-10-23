@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#090d18">
+<title>AR16 OS — Studio Konten Affiliate</title>
+<style>
+:root{color-scheme:dark;--bg:#090d18;--panel:#121a2b;--line:#26334b;--muted:#9aa8c2;--text:#f3f6ff;--accent:#8b7cff;--accent2:#28d7c5}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#172441 0,#090d18 55%);color:var(--text);font:15px system-ui,-apple-system,Segoe UI,sans-serif}
+header{padding:22px 18px 14px;position:sticky;top:0;background:#090d18eF;backdrop-filter:blur(16px);border-bottom:1px solid #26334b;z-index:3}
+.kicker{color:var(--accent2);font-size:11px;letter-spacing:.18em;font-weight:800}.brand{font-size:23px;font-weight:850;margin:4px 0}.sub{color:var(--muted);font-size:13px}
+main{max-width:760px;margin:auto;padding:16px;display:grid;gap:14px}.card{background:linear-gradient(145deg,#141e31ed,#0e1524f2);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 12px 30px #0002}
+h2{font-size:16px;margin:0 0 14px}.hint{color:var(--muted);font-size:12px;line-height:1.5}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{display:grid;gap:7px;margin-bottom:12px}label{font-size:12px;color:#c7d1e5;font-weight:650}input,textarea,select{width:100%;border:1px solid #34425d;border-radius:11px;background:#0a1120;color:var(--text);padding:12px;font:inherit;min-width:0}textarea{resize:vertical;min-height:88px}input[type=file]{font-size:12px;padding:9px}input[type=checkbox]{width:18px;height:18px;accent-color:var(--accent)}.check{display:flex;gap:9px;align-items:center;margin:10px 0;color:#cbd5e8;font-size:13px}.preview{display:flex;gap:8px;flex-wrap:wrap}.preview img{width:76px;height:76px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}button{border:0;border-radius:12px;padding:13px 15px;font-weight:800;font-size:14px;cursor:pointer;color:#0a1020;background:linear-gradient(100deg,var(--accent2),#9af4df);width:100%;margin-top:7px}.secondary{background:#202c44;color:#e9edff;border:1px solid #3a4965}.danger{background:#35242b;color:#ffc5cb;border:1px solid #70404b}.status{border:1px solid #65552b;background:#292315;color:#ffdfa0;padding:12px;border-radius:12px;font-size:12px;line-height:1.5}.pill{display:inline-block;border:1px solid #65552b;color:#ffdfa0;border-radius:999px;padding:4px 8px;font-size:10px;font-weight:800;letter-spacing:.06em}.output{min-height:170px;font-family:ui-monospace,SFMono-Regular,monospace;font-size:12px;line-height:1.55}.foot{text-align:center;color:var(--muted);font-size:11px;padding:6px 20px 25px}@media(max-width:480px){.grid{grid-template-columns:1fr}.card{padding:14px}header{padding:18px 16px 12px}}
+</style>
+</head>
+<body>
+<header><div class="kicker">AR16 OS • CREATOR WORKSPACE</div><div class="brand">Studio Konten Affiliate</div><div class="sub">Prompt workspace untuk produksi konten produk</div></header>
+<main>
+<section class="card"><h2>01 / Referensi Visual</h2>
+<div class="grid">
+<div class="field"><label for="modelImage">Foto model / talent</label><input id="modelImage" type="file" accept="image/*"><div id="modelPreview" class="preview"></div></div>
+<div class="field"><label for="productImage">Foto produk</label><input id="productImage" type="file" accept="image/*"><div id="productPreview" class="preview"></div></div>
+</div>
+<div class="field"><label for="logoImage">Logo (opsional)</label><input id="logoImage" type="file" accept="image/*"><div id="logoPreview" class="preview"></div></div>
+<p class="hint">Foto yang dipilih digunakan sebagai referensi di workspace ini. Pada versi ini gambar belum dikirim ke layanan video AI.</p>
+</section>
+<section class="card"><h2>02 / Brief Konten</h2>
+<div class="field"><label for="narrative">Narasi / dialog</label><textarea id="narrative" placeholder="Tulis narasi video atau dialog talent..."></textarea></div>
+<div class="field"><label for="visualHook">Visual hook (3 detik pertama)</label><input id="visualHook" placeholder="Contoh: close-up produk, gerakan kamera cepat..."></div>
+<div class="grid">
+<div class="field"><label for="outfit">Outfit utama</label><input id="outfit" placeholder="Contoh: casual clean look"></div>
+<div class="field"><label for="voiceGender">Gender suara</label><select id="voiceGender"><option>Female</option><option>Male</option><option>Neutral</option></select></div>
+<div class="field"><label for="voiceTone">Karakter suara</label><select id="voiceTone"><option>Natural and friendly</option><option>Energetic and persuasive</option><option>Calm and premium</option><option>Playful and expressive</option></select></div>
+<div class="field"><label for="tempo">Tempo bicara</label><select id="tempo"><option>Medium</option><option>Fast</option><option>Slow</option></select></div>
+</div>
+<label class="check"><input id="overrideOutfit" type="checkbox"> Paksa outfit sesuai deskripsi</label>
+<label class="check"><input id="changeOutfit" type="checkbox"> Perubahan outfit di tengah video</label>
+<div class="field"><label for="outfitOverride">Deskripsi outfit khusus (opsional)</label><input id="outfitOverride" placeholder="Isi jika ingin mengunci outfit tertentu"></div>
+<button id="compile">Compile Prompt</button>
+</section>
+<section class="card"><h2>03 / Prompt Output</h2>
+<textarea id="output" class="output" placeholder="Prompt akan muncul di sini..."></textarea>
+<button id="copy" class="secondary">Salin Prompt</button>
+<div id="copyStatus" class="hint" aria-live="polite"></div>
+</section>
+<section class="card"><h2>04 / Video Render <span class="pill">BELUM AKTIF</span></h2>
+<div class="status"><strong>Render AI belum terhubung.</strong><br>Tombol ini tidak membuat video AI dan tidak mengirim data ke API. Integrasi layanan video akan ditambahkan pada tahap berikutnya.</div>
+<div class="field" style="margin-top:14px"><label for="apiKey">API key (belum digunakan)</label><input id="apiKey" type="password" autocomplete="off" placeholder="Jangan masukkan API key rahasia di versi ini" disabled></div>
+<button id="render" class="danger">Render Video AI — Belum Aktif</button>
+<div id="renderStatus" class="hint" aria-live="polite" style="margin-top:10px"></div>
+</section>
+</main><div class="foot">AR16 OS • Local Android workspace • Render AI belum aktif</div>
+<script>
+const byId=id=>document.getElementById(id);
+function preview(inputId,targetId){byId(inputId).addEventListener('change',e=>{const target=byId(targetId);target.innerHTML='';[...(e.target.files||[])].slice(0,4).forEach(file=>{if(!file.type.startsWith('image/'))return;const img=document.createElement('img');img.alt='Preview gambar';img.src=URL.createObjectURL(file);target.appendChild(img)})})}
+preview('modelImage','modelPreview');preview('productImage','productPreview');preview('logoImage','logoPreview');
+byId('compile').addEventListener('click',()=>{
+ const narrative=byId('narrative').value.trim(), hook=byId('visualHook').value.trim();
+ if(!byId('modelImage').files.length || !byId('productImage').files.length){alert('Pilih foto model dan foto produk terlebih dahulu.');return;}
+ const outfit=byId('outfit').value.trim()||'Keep styling consistent with the reference image';
+ const override=byId('overrideOutfit').checked;
+ const change=byId('changeOutfit').checked;
+ const custom=byId('outfitOverride').value.trim();
+ const parts=[
+ 'Create a polished vertical 9:16 affiliate product video based on the provided model and product reference images.',
+ 'VISUAL HOOK: '+(hook||'Open with an immediate, clear product-focused visual hook.'),
+ 'NARRATION / DIALOGUE: '+(narrative||'Use concise natural product-focused dialogue; do not invent unsupported product claims.'),
+ 'OUTFIT: '+(override&&custom?custom:outfit)+'.',
+ 'OUTFIT LOCK: '+(override?'Follow the specified outfit consistently.':'Preserve the reference look and natural continuity.'),
+ 'MID-VIDEO OUTFIT CHANGE: '+(change?'Include one deliberate, visually coherent outfit change at a clear transition.':'Do not change outfit during the video.'),
+ 'VOICE: '+byId('voiceGender').value+', '+byId('voiceTone').value+', '+byId('tempo').value+' speaking pace.',
+ 'CAMERA AND LIGHTING: clean commercial framing, natural movement, coherent lighting, realistic textures, product remains visually consistent.',
+ 'CONTINUITY: preserve model identity, product shape, labels and colors as closely as possible to references. Avoid extra fingers, warped objects, flicker, random text, watermarks, or unsupported claims.',
+ 'OUTPUT: vertical 9:16 social video. This is a prompt only; the current Android app does not render a video.'
+ ];
+ byId('output').value=parts.join('\\n\\n');
+ byId('copyStatus').textContent='Prompt berhasil dibuat.';
+});
+byId('copy').addEventListener('click',async()=>{
+ const value=byId('output').value;
+ if(!value.trim()){byId('copyStatus').textContent='Compile prompt terlebih dahulu.';return;}
+ try{await navigator.clipboard.writeText(value);byId('copyStatus').textContent='Prompt berhasil disalin.'}
+ catch(e){byId('output').focus();byId('output').select();try{document.execCommand('copy');byId('copyStatus').textContent='Coba salin dari teks yang sudah dipilih.'}catch(_){byId('copyStatus').textContent='Pilih teks prompt lalu salin secara manual.'}}
+});
+byId('render').addEventListener('click',()=>{byId('renderStatus').textContent='Belum aktif: belum ada layanan AI video yang terhubung. Tidak ada video yang sedang dirender.'});
+</script>
+</body></html>
